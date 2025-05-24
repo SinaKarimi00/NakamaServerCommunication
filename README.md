@@ -1,8 +1,7 @@
 # 🎮 Nakama Server Communication Package for Unity
 
 A modular and extensible Unity package for integrating with [Nakama](https://heroiclabs.com/) game server. It supports
-device authentication, session management, profile data, cloud storage, and leaderboard features — all via clean
-architecture principles.
+device authentication, session management, profile data, cloud storage, and leaderboard features
 
 ---
 
@@ -16,6 +15,32 @@ architecture principles.
 - 🛠️ **Builder Pattern** – Compose only what you need with `NakamaCommunicationBuilder`
 
 ---
+
+## 📦 Dependencies
+
+This package depends on the following libraries(these dependencies are imported in this package, you can skip this section):
+
+### ✅ [Nakama Unity SDK](https://github.com/heroiclabs/nakama-unity)
+
+Used for communication with Nakama game server.
+
+Add to your `manifest.json`:
+
+```json
+"com.heroiclabs.nakama-unity": "https://github.com/heroiclabs/nakama-unity.git#3.15.0"
+```
+
+This package depends on the following libraries:
+
+### ✅ [Newtonsoft.Json](https://github.com/applejag/Newtonsoft.Json-for-Unity)
+
+Used for JSON serialization (e.g. leaderboard metadata).
+
+Add to your `manifest.json`:
+
+```json
+"com.unity.nuget.newtonsoft-json": "3.0.2"
+```
 
 ## 🚀 Usage
 
