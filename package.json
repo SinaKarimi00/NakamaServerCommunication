@@ -1,18 +1,10 @@
 ﻿{
   "name": "com.sk.nakamaservercommunication",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "displayName": "Nakama Server Communication",
   "description": "A package for communicating with the Nakama server.",
   "unity": "2021.3",
   "author": {
     "name": "Sina Karimi"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SinaKarimi00/com.sk.nakamaservercommunication.git"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "jillejr.newtonsoft.json-for-unity": "13.0.102"
   }
 }
