@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0389ca31db3c4d0597327e54f4fc7d71, type: 3}
   m_Name: NakamaConfig
   m_EditorClassIdentifier: 
-  serverUrl: 09d50bf8-600e-4c30-a50d-2893962cd0bb.hsvc.ir
+  serverUrl: 
   serverKey: defaultkey
   schema: http
-  serverPort: 32475
+  serverPort: 0
   timeOut: 15
