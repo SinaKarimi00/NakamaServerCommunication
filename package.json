@@ -1,6 +1,6 @@
 ﻿{
   "name": "com.sk.nakamaservercommunication",
-  "version": "1.1.5",
+  "version": "0.1.0",
   "displayName": "Nakama Server Communication",
   "description": "A package for communicating with the Nakama server.",
   "unity": "2021.3",
