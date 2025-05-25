@@ -10,16 +10,14 @@ namespace NakamaServerCommunication.RunTime.Main
     {
         public readonly Dictionary<Type, INakamaService> NakamaServices = new Dictionary<Type, INakamaService>();
 
-        public Client Client { get; private set; }
-        public ISession Session { get; private set; }
-
-        public void RunNakama(NakamaConfigModel nakamaConfig)
+        public Client RunNakama(NakamaConfigModel nakamaConfig)
         {
-            Client = new Client(nakamaConfig.Schema, nakamaConfig.ServerUrl, nakamaConfig.ServerPort,
+            var client = new Client(nakamaConfig.Schema, nakamaConfig.ServerUrl, nakamaConfig.ServerPort,
                 nakamaConfig.ServerKey)
             {
                 Timeout = nakamaConfig.TimeOut
             };
+            return client;
         }
 
         public T GetService<T>(Type serviceType) where T : class, INakamaService

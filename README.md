@@ -1,7 +1,8 @@
 # 🎮 Nakama Server Communication Package for Unity
 
 A modular and extensible Unity package for integrating with [Nakama](https://heroiclabs.com/) game server. It supports
-device authentication, session management, profile data, cloud storage, and leaderboard features
+device authentication, session management, profile data, cloud storage, and leaderboard features — all via clean
+architecture principles.
 
 ---
 
@@ -16,31 +17,11 @@ device authentication, session management, profile data, cloud storage, and lead
 
 ---
 
-## 📦 Dependencies
+## 📦 Installation
 
-This package depends on the following libraries(these dependencies are imported in this package, you can skip this section):
+📥 **Download and import the `.unitypackage` from the [Releases](https://github.com/SinaKarimi00/NakamaServerCommunication/releases) section** of this repository.
 
-### ✅ [Nakama Unity SDK](https://github.com/heroiclabs/nakama-unity)
-
-Used for communication with Nakama game server.
-
-Add to your `manifest.json`:
-
-```json
-"com.heroiclabs.nakama-unity": "https://github.com/heroiclabs/nakama-unity.git#3.15.0"
-```
-
-This package depends on the following libraries:
-
-### ✅ [Newtonsoft.Json](https://github.com/applejag/Newtonsoft.Json-for-Unity)
-
-Used for JSON serialization (e.g. leaderboard metadata).
-
-Add to your `manifest.json`:
-
-```json
-"com.unity.nuget.newtonsoft-json": "3.0.2"
-```
+---
 
 ## 🚀 Usage
 
@@ -67,13 +48,12 @@ Add to your `manifest.json`:
   ```csharp
   var sessionService = nakamaSystem.GetService<SessionService>(typeof(SessionService));
   var session = await sessionService.AuthenticationRequest(nakamaSystem.Client);
-  nakamaSystem.Session = session;
   ```
 
 - 🔄 4. Refresh Session (if needed)
 
   ```csharp
-  nakamaSystem.Session = await sessionService.RefreshSession(nakamaSystem.Session, nakamaSystem.Client);
+  var newSession = await sessionService.RefreshSession(nakamaSystem.Session, nakamaSystem.Client);
   ```
 
 - 💾 5. Save Data
@@ -95,7 +75,7 @@ Add to your `manifest.json`:
   ```csharp
   var readObjects = new IApiReadStorageObjectId[]
   {
-    new ApiReadStorageObjectId
+    new StorageObjectId
     {
       Collection = "player_data",
       Key = "progress",
@@ -145,3 +125,68 @@ Add to your `manifest.json`:
     Debug.Log($"{player.Rank}. {player.Username} - {player.Score}");
   }
   ```
+  
+---
+
+## 🧪 NakamaServerCommunication Unity Test Suite
+
+This project contains runtime integration tests for the [NakamaServerCommunication](https://github.com/SinaKarimi00/NakamaServerCommunication) system using Unity's built-in **Test Runner** and **NUnit**.
+
+---
+
+### 📦 Prerequisites
+
+Before running the tests, ensure the following:
+
+1. **Nakama Server** is running  
+   You must run Nakama via Docker or any other method. For Docker
+
+2. **Unity Test Framework** is installed  
+   In Unity:
+- Open `Window → Package Manager`
+- Select `Unity Registry`
+- Install **Test Framework**
+
+3. You have the required assets under the `Resources` folder:
+- `Resources/NakamaConfig.asset`
+- `Resources/LeaderboardConfig.asset`
+> ✅ You can load your configs with other ways like    `Addressables`.
+
+
+---
+
+## 🚀 Running the Tests
+
+To run the test suite in Unity:
+
+1. Open **Unity Editor**
+2. Navigate to `Window → General → Test Runner`
+3. In the **Test Runner** panel:
+- Select **Edit Mode**
+- Click **Run All**
+4. View results and logs in the **Console**
+
+
+---
+
+## 🧪 Test List
+
+| Test Method              | Description                                                               |
+|--------------------------|---------------------------------------------------------------------------|
+| `TestAuthentication`     | Tests user authentication using the configured `NakamaConfig.asset`       |
+| `TestRefreshToken`       | Ensures token refresh works after authentication                          |
+| `TestSaveData`           | Writes player progress data to storage                                    |
+| `TestLoadData`           | Reads player progress data from storage                                   |
+| `TestCreateLeaderboard`  | Creates a leaderboard using `LeaderboardConfig.asset`                     |
+| `TestSubmitScore`        | Submits a test score to the specified leaderboard                         |
+| `TestFetchLeaderboard`   | Fetches and prints leaderboard standings to the console                   |
+
+---
+
+## ⚠️ Known Limitations
+
+- The `Authenticate()` method initializes Nakama and authenticates every time for isolation, but in production tests this can be optimized.
+- Ensure the leaderboard ID used (e.g., `"global_leaderboard"`) matches what exists on your Nakama server.
+
+---
+
