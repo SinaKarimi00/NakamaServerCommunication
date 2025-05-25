@@ -1,9 +1,7 @@
 # 🎮 Nakama Server Communication Package for Unity
 
 A modular and extensible Unity package for integrating with [Nakama](https://heroiclabs.com/) game server. It supports
-device authentication, session management, profile data, cloud storage, and leaderboard features — all via clean
-architecture principles.
-
+device authentication, session management, profile data, cloud storage, and leaderboard features.
 ---
 
 ## ✨ Features
