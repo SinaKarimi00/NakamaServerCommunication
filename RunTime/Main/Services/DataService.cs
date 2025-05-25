@@ -3,6 +3,7 @@ using Nakama;
 using System.Threading.Tasks;
 using NakamaServerCommunication.RunTime.Application;
 using NakamaServerCommunication.RunTime.Main.RequestsResponses;
+using UnityEngine;
 
 namespace NakamaServerCommunication.RunTime.Main.Services
 {
@@ -22,6 +23,7 @@ namespace NakamaServerCommunication.RunTime.Main.Services
             }
             catch (Exception e)
             {
+                Debug.Log(e);
                 return null;
             }
         }
