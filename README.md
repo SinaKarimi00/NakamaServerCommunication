@@ -81,7 +81,7 @@ func CreateLeaderboard(ctx context.Context, logger runtime.Logger, db *sql.DB, n
 
 
 ---
-## 🚀 Usage
+## 🚀 Client-Side Setup
 
 - 🔧 1. Initialize the Builder, add needed services to builder
 
