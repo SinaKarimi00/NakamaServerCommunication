@@ -21,6 +21,66 @@ device authentication, session management, profile data, cloud storage, and lead
 
 ---
 
+
+## 🛠 Server-Side Setup for Leaderboard Creation
+
+Before using the leaderboard features in your Unity package, you must ensure the **Nakama server** has the required server-side RPC function registered.
+
+### Step 1: Create the `create_leaderboard` RPC
+
+Add the following Go code to your **Nakama server** module to enable leaderboard creation via RPC.
+
+```go
+package main
+
+import (
+    "context"
+    "database/sql"
+    "encoding/json"
+
+    "github.com/heroiclabs/nakama-common/runtime"
+)
+
+type LeaderboardRequest struct {
+    ID                  string `json:"id"`
+    SortOrder           string `json:"sort_order"`
+    LeaderboardOperator string `json:"leaderboard_operator"`
+    ResetSchedule       string `json:"reset_schedule"`
+}
+
+func CreateLeaderboard(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
+    var req LeaderboardRequest
+    if err := json.Unmarshal([]byte(payload), &req); err != nil {
+        return "", err
+    }
+
+    authoritative := false
+    metadata := map[string]interface{}{}
+    enableRanks := true
+
+    if err := nk.LeaderboardCreate(ctx, req.ID, authoritative, req.SortOrder, req.LeaderboardOperator, req.ResetSchedule, metadata, enableRanks); err != nil {
+        logger.Error("Failed to create leaderboard: %v", err)
+        return "", err
+    }
+
+    logger.Info("Leaderboard '%s' created successfully.", req.ID)
+    return `{"success": true}`, nil
+}
+```
+
+### Step 2: Add  below code to the Initializer or Main Script
+
+```go
+    if err := nk.RegisterRpc("create_leaderboard", CreateLeaderboard); err != nil {
+        logger.Error("Failed to register RPC 'create_leaderboard': %v", err)
+        return nil, err
+    }
+
+    logger.Info("RPC 'create_leaderboard' registered successfully.")
+```
+
+
+---
 ## 🚀 Usage
 
 - 🔧 1. Initialize the Builder, add needed services to builder
